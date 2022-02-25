@@ -1,0 +1,41 @@
+<idea-plugin>
+  <id>com.your.company.unique.plugin.id</id>
+  <name>show me your code</name>
+  <version>1.0</version>
+  <vendor email="wzh@boycar.com" url="http://www.boycar.com">BoyCcar</vendor>
+
+  <description><![CDATA[
+      <em>本插件包含两个功能</em>
+      <em>1.查看项目开发人员代码量</em>
+      <em>2.根据K_V生成xml文件</em>
+      <em>  1).创建一个文件，将K=V放到文件中，自动生成xml文件在当前同父目录下</em>
+    ]]></description>
+
+  <change-notes><![CDATA[
+      <em>第一次版本</em>
+    ]]>
+  </change-notes>
+
+  <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+  <idea-version since-build="173.0"/>
+
+  <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+       on how to target different products -->
+  <depends>com.intellij.modules.platform</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Add your extensions here -->
+  </extensions>
+
+  <actions>
+    <!-- Add your actions here -->
+    <group id="test_group" text="奇淫巧技" popup="true">
+      <add-to-group group-id="ToolsMenu" anchor="first"/>
+      <action id="test_id" class="ShowCode" text="查看代码量" description="没啥描述的">
+      </action>
+      <action id="org.wzh.com.tool" class="GengernateXML" text="GengernateXML"
+        description="根据keyvalue生成xml文件">
+      </action>
+    </group>
+  </actions>
+</idea-plugin>
