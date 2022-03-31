@@ -31,10 +31,14 @@
     <!-- Add your actions here -->
     <group id="test_group" text="奇淫巧技" popup="true">
       <add-to-group group-id="ToolsMenu" anchor="first"/>
-      <action id="test_id" class="ShowCode" text="查看代码量" description="没啥描述的">
+      <action id="test_id" class="ShowCode" text="查看代码量"
+        description="没啥描述的">
       </action>
-      <action id="org.wzh.com.tool" class="GengernateXML" text="GengernateXML"
+      <action id="org.wzh.com.tool.generatexml" class="GengernateXML" text="生成XML"
         description="根据keyvalue生成xml文件">
+      </action>
+      <action id="org.wzh.com.tool.uplinetool" class="UpLineTool" text="NN上线神器"
+        description="查看nn上线状态，是否可以切换">
       </action>
     </group>
   </actions>
