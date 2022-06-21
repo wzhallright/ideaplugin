@@ -30,9 +30,20 @@ public class GengernateXML extends AnAction {
       HashMap<String, String> hashMap = new HashMap<>();
       while ((line = bufferedReader.readLine()) != null) {
         String[] nameAndValue = line.split("=");
+        if (nameAndValue.length <= 1) {
+          throw new IOException("输入的文件内容不符合要求，请使用=分割开key value");
+        }
         hashMap.put(nameAndValue[0].trim(), nameAndValue[1].trim());
       }
       buildXml(hashMap, file);
+      Notifications.Bus.notify(
+          new Notification("xtools", "结果", "xml生成成功,请刷新该工程，从磁盘reload", NotificationType.INFORMATION)
+      );
+    } catch (IOException ioException) {
+      Notifications.Bus.notify(
+          new Notification("xtools", "结果", ioException.getMessage(), NotificationType.INFORMATION)
+      );
+      ioException.printStackTrace();
     } catch (Exception exception) {
       Notifications.Bus.notify(
           new Notification("xtools", "结果", "xml生成失败", NotificationType.INFORMATION)
@@ -45,26 +56,22 @@ public class GengernateXML extends AnAction {
         ioException.printStackTrace();
       }
     }
-    Notifications.Bus.notify(
-        new Notification("xtools", "结果", "xml生成成功", NotificationType.INFORMATION)
-    );
   }
 
   public void buildXml(HashMap<String, String> hashMap, VirtualFile file) throws Exception {
     Element root, property, name, value;
     root = new Element("configuration");
-    property = new Element("property");
-    name = new Element("name");
-    value = new Element("value");
     Document docRoot = new Document(root);
     for (Entry<String, String> entry : hashMap.entrySet()) {
+      property = new Element("property");
+      name = new Element("name");
+      value = new Element("value");
       name.setText(entry.getKey());
       value.setText(entry.getValue());
       property.addContent(name);
       property.addContent(value);
+      root.addContent(property);
     }
-
-    root.addContent(property);
     Format format = Format.getCompactFormat();
     format.setEncoding("UTF-8");           //设置xml文件的字符为UTF-8
     format.setIndent("    ");               //设置xml文件的缩进为4个空格
